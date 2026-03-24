@@ -19,6 +19,11 @@ export async function GET(request: Request) {
         // Build where clause
         const where: Record<string, unknown> = {};
 
+        const businessId = (session.user as any).businessId;
+        if (businessId) {
+            where.businessId = businessId;
+        }
+
         if (status) {
             where.status = status;
         }
@@ -119,6 +124,8 @@ export async function POST(request: Request) {
             }
         }
 
+        const businessId = (session.user as any).businessId;
+
         const shift = await prisma.shift.create({
             data: {
                 title,
@@ -127,6 +134,7 @@ export async function POST(request: Request) {
                 location,
                 notes: notes || null,
                 status: status || 'PLANNED',
+                businessId: businessId || undefined,
                 assignments: userId ? {
                     create: {
                         userId: userId,

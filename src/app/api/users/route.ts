@@ -14,7 +14,10 @@ export async function GET() {
 
         // All authenticated users can see the list of employees (for swap/give functionality)
 
+        const businessId = (session.user as any).businessId;
+
         const users = await prisma.user.findMany({
+            where: businessId ? { businessId } : undefined,
             select: {
                 id: true,
                 name: true,
@@ -75,6 +78,8 @@ export async function POST(request: Request) {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // Create user
+        const businessId = (session.user as any).businessId;
+
         const user = await prisma.user.create({
             data: {
                 name,
@@ -83,6 +88,7 @@ export async function POST(request: Request) {
                 password: hashedPassword,
                 role: role || 'EMPLOYEE',
                 active: true,
+                businessId: businessId || undefined,
             },
             select: {
                 id: true,

@@ -25,10 +25,13 @@ export async function GET(request: Request) {
             where.startsAt = { ...where.startsAt, lte: new Date(endDate) };
         }
 
+        const businessId = (session.user as any).businessId;
+
         const shifts = await prisma.shift.findMany({
             where: {
                 ...where,
                 status: 'PLANNED',
+                ...(businessId ? { businessId } : {}),
             },
             include: {
                 assignments: {

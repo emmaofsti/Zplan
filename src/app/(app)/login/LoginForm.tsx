@@ -76,7 +76,7 @@ function LoginForm() {
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="form-group">
                     <label htmlFor="name" className="form-label">
-                        Fornavn
+                        E-post eller navn
                     </label>
                     <input
                         id="name"
@@ -85,7 +85,7 @@ function LoginForm() {
                         onChange={(e) => setName(e.target.value)}
                         onBlur={(e) => checkPasswordRequirement(e.target.value)}
                         className="form-input"
-                        placeholder="Skriv inn ditt fornavn"
+                        placeholder="din@epost.no"
                         required
                         autoFocus
                         autoComplete="username"

@@ -14,11 +14,13 @@ export default async function DashboardPage() {
 
     try {
         const prisma = (await import('@/lib/prisma')).default;
+        const businessId = (session.user as any).businessId;
         const assignments = await prisma.shiftAssignment.findMany({
             where: {
                 userId: session.user.id,
                 shift: {
                     startsAt: { gte: new Date() },
+                    ...(businessId ? { businessId } : {}),
                 },
             },
             include: {

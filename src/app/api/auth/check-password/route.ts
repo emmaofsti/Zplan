@@ -12,15 +12,22 @@ export async function POST(request: Request) {
         }
 
         const searchName = name.trim().toLowerCase();
+        const isEmail = searchName.includes('@');
 
-        // Find user by name (case insensitive)
-        const users = await prisma.user.findMany({
-            where: { active: true },
-        });
-
-        const user = users.find(
-            (u) => u.name.toLowerCase() === searchName
-        );
+        let user;
+        if (isEmail) {
+            user = await prisma.user.findUnique({
+                where: { email: searchName },
+            });
+            if (user && !user.active) user = null;
+        } else {
+            const users = await prisma.user.findMany({
+                where: { active: true },
+            });
+            user = users.find(
+                (u) => u.name.toLowerCase() === searchName
+            );
+        }
 
         if (!user) {
             return NextResponse.json({ error: 'Bruker ikke funnet' }, { status: 404 });

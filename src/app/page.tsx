@@ -129,13 +129,21 @@ function Nav() {
           </span>
           plan
         </span>
-        <a
-          href="/onboard"
-          className="group flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25 hover:gap-3"
-        >
-          Start gratis
-          <IconArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/login"
+            className="text-sm font-semibold text-text-secondary hover:text-text transition-colors"
+          >
+            Logg inn
+          </a>
+          <a
+            href="/onboard"
+            className="group flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/25 hover:gap-3"
+          >
+            Start gratis
+            <IconArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </div>
       </div>
     </nav>
   );
